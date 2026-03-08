@@ -10,7 +10,9 @@ import org.apache.spark.api.java.JavaSparkContext;
 public class App {
     public static void main(String[] args) throws InterruptedException {
         SparkConf conf = new SparkConf()
-                .setAppName("Spark Maven First App");
+                .setAppName("Spark Maven First App")
+                .setMaster("local[*]");
+
         JavaSparkContext sc = new JavaSparkContext(conf);
 
         long count = sc.parallelize(
@@ -18,9 +20,6 @@ public class App {
                 2).count();
 
         System.out.println("Count = " + count);
-
-        // Keep the driver alive so we can inspect the UI
-        Thread.sleep(60_000);
 
         sc.close();
 

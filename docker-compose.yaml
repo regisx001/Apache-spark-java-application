@@ -1,6 +1,6 @@
 services:
   spark-master:
-    image: apache/spark:latest
+    image: apache/spark:3.5.1
     container_name: spark-master
     hostname: spark-master
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
@@ -14,7 +14,7 @@ services:
       - spark-net
 
   spark-worker:
-    image: apache/spark:latest
+    image: apache/spark:3.5.1
     container_name: spark-worker
     command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
     environment:
