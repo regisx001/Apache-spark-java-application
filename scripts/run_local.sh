@@ -3,8 +3,15 @@
 set -e
 
 APP_NAME="spark-java-app"
-MAIN_CLASS="com.regisx001.spark.App"
 JAR_PATH="target/${APP_NAME}-1.0.jar"
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <main-class>"
+    echo "Example: $0 com.regisx001.wordcount.WordCount"
+    exit 1
+fi
+
+MAIN_CLASS="com.regisx001.$1"
 
 echo "=================================="
 echo "Building Spark project with Maven"
