@@ -17,7 +17,7 @@ echo "=================================="
 echo "Building Spark project with Maven"
 echo "=================================="
 
-mvn clean package
+mvn clean package > /dev/null
 
 echo ""
 echo "=================================="
