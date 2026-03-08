@@ -39,6 +39,27 @@ public class RddCreation {
 
             counts.collect().forEach(System.out::println);
 
+            // Experiment 5 : count requests per IP.
+            JavaRDD<String> requestLines = sc.textFile("data/requests.txt");
+
+            /*
+             * flatMap is used when one input → many outputs.
+             * 
+             * Example:
+             * 
+             * "hello spark"
+             * → ["hello","spark"]
+             * 
+             */
+            // JavaRDD<String> ips = requestLines.flatMap(line -> Arrays.asList(line.split("
+            // ")[0]).iterator());
+
+            JavaRDD<String> ips = requestLines.map(line -> line.split(" ")[0]);
+            JavaPairRDD<String, Integer> ipsCounts = ips.mapToPair(ip -> new Tuple2<>(ip, 1))
+                    .reduceByKey(Integer::sum);
+
+            System.out.println("Request IPS");
+            ipsCounts.collect().forEach(System.out::println);
             sc.close();
         }
     }
